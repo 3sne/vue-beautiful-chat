@@ -1,6 +1,6 @@
 {
   "name": "@keytoz/vue-beautiful-chat",
-  "version": "2.3.3",
+  "version": "2.3.5",
   "description": "A simple and beautiful Vue chat component backend agnostic.",
   "main": "./src/index.js",
   "repository": {
@@ -59,6 +59,7 @@
     "url": "https://github.com/mattmezza/vue-beautiful-chat/issues"
   },
   "dependencies": {
+    "@keytoz/vue-beautiful-chat": "^2.3.3",
     "autolinker": "^1.8.3",
     "babel-preset-env": "^1.6.1",
     "emoji-js": "^3.4.0",
