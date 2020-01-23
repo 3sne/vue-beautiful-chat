@@ -1,3 +1,4 @@
+import ChatWindow from './ChatWindow.vue'
 import Launcher from './Launcher.vue'
 import VTooltip from 'v-tooltip'
 
@@ -15,7 +16,7 @@ const Plugin = {
     this.installed = true
     this.event = new Vue()
     this.dynamicContainer = null
-    this.componentName = options.componentName || defaultComponentName
+    // this.componentName = options.componentName || defaultComponentName
     /**
      * Plugin API
      */
@@ -27,7 +28,9 @@ const Plugin = {
     /**
      * Sets custom component name (if provided)
      */
-    Vue.component(this.componentName, Launcher)
+    // Vue.component(this.componentName, Launcher)
+    Vue.component('beautiful-chat', Launcher)
+    Vue.component('chat-window', ChatWindow)
     Vue.use(VTooltip)
   }
 }

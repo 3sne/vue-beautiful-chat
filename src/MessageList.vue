@@ -25,6 +25,11 @@ export default {
   components: {
     Message
   },
+  data() {
+    return {
+      _currScroll: null
+    }
+  },
   props: {
     participants: {
       type: Array,
@@ -52,8 +57,11 @@ export default {
     }
   },
   methods: {
-    _scrollDown () {
-      this.$refs.scrollList.scrollTop = this.$refs.scrollList.scrollHeight
+    _doScroll () {
+      if (!this._currScroll)
+        this.$refs.scrollList.scrollTop = this.$refs.scrollList.scrollHeight
+      else
+        this.$refs.scrollList.scrollTop = this.$refs.scrollList.scrollHeight - this._currScroll
     },
     handleScroll (e) {
         if (e.target.scrollTop === 0) {
@@ -76,11 +84,14 @@ export default {
     }
   },
   mounted () {
-    this.$nextTick(this._scrollDown())
+    this.$nextTick(this._doScroll())
+  },
+  beforeUpdate() {
+    this._currScroll = this.$refs.scrollList.scrollHeight - this.$refs.scrollList.scrollTop;
   },
   updated () {
     if (this.shouldScrollToBottom())
-      this.$nextTick(this._scrollDown())
+      this.$nextTick(this._doScroll())
   }
 }
 </script>
