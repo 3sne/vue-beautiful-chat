@@ -101,6 +101,19 @@ export default {
   height: 80%;
   overflow-y: auto;
   background-size: 100%;
-  padding: 40px 0px;
+  padding: 20px 0px;
+  scrollbar-width: thin;
+  scrollbar-color:#90A4AE rgb(255, 255, 255);
+}
+.sc-message-list::-webkit-scrollbar {
+  width: 11px;
+}
+.sc-message-list::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255)
+}
+.sc-message-list::-webkit-scrollbar-thumb {
+  background-color: #90A4AE ;
+  border-radius: 6px;
+  border: 3px solid rgb(255, 255, 255);
 }
 </style>

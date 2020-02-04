@@ -1,5 +1,14 @@
 <template>
-  <div class="sc-chat-window" :class="{opened: isOpen, closed: !isOpen}">
+<div class="sc-chat-container">
+  <div v-show="true" class="sc-contacts-container">
+    <ContactList 
+      :show="showContacts"
+      :colors="colors"
+      :contactList="contactList"
+      @clickContact="clickContact"
+    />
+  </div>
+  <div class="sc-chat-window" :class="{opened: isOpen, closed: !isOpen, 'sc-chat-window--only': !showContacts, 'sc-chat-window--wcontact': showContacts}">
     <Header
       :showCloseButton="showCloseButton"
       :title="title"
@@ -57,6 +66,7 @@
       @edit="$emit('edit', $event)"
       :colors="colors" />
   </div>
+</div>
 </template>
 
 <script>
@@ -64,13 +74,15 @@ import Header from './Header.vue'
 import MessageList from './MessageList.vue'
 import UserInput from './UserInput.vue'
 import UserList from './UserList.vue'
+import ContactList from './ContactList.vue'
 
 export default {
   components: {
     Header,
     MessageList,
     UserInput,
-    UserList
+    UserList,
+    ContactList
   },
   props: {
     showEmoji: {
@@ -136,6 +148,14 @@ export default {
     disableUserListToggle: {
       type: Boolean,
       default: false
+    },
+    showContacts: {
+      type: Boolean,
+      default: true
+    },
+    contactList: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -156,18 +176,37 @@ export default {
     },
     getSuggestions(){
       return this.messages.length > 0 ? this.messages[this.messages.length - 1].suggestions : []
+    },
+    clickContact(participant) {
+      this.$emit('clickContact', participant);
     }
   }
 }
 </script>
 <style scoped>
-.sc-chat-window {
-  width: 370px;
-  height: calc(100% - 120px);
+.sc-chat-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  min-width: 300px;
   max-height: 590px;
-  position: fixed;
-  right: 25px;
-  bottom: 100px;
+  box-sizing: border-box;
+  box-shadow: 0px 7px 40px 2px rgba(148, 149, 150, 0.1);
+}
+
+.sc-chat-window--only {
+  width: 100%
+}
+
+.sc-chat-window--wcontact {
+  width: 61.8%;
+}
+
+.sc-chat-window {
+  min-width: 300px;
+  max-height: 590px;
+  min-height: 590px;
   box-sizing: border-box;
   box-shadow: 0px 7px 40px 2px rgba(148, 149, 150, 0.1);
   background: white;
@@ -221,5 +260,9 @@ export default {
   .sc-chat-window.closed {
     bottom: 0px;
   }
+}
+.sc-contacts-container {
+  width: 38.2%;
+  max-height: 590px;
 }
 </style>

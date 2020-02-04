@@ -9,7 +9,7 @@
         name="user-avatar"
         :message="message" 
         :user="user">
-          <div v-if="message.type !== 'system'" :title="authorName" class="sc-message--avatar" :style="{
+          <div v-if="message.type !== 'system' && showAvatar" :title="authorName" class="sc-message--avatar" :style="{
             backgroundImage: `url(${chatImageUrl})`
           }" v-tooltip="authorName"></div>
       </slot>
@@ -78,6 +78,10 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    showAvatar: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -109,7 +113,7 @@ export default {
 </script>
 <style lang="scss">
 .sc-message {
-  width: 300px;
+  width: calc(100% - 20px);
   margin: auto;
   padding-bottom: 10px;
   display: flex;

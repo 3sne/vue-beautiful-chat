@@ -252,7 +252,7 @@ export default {
 }
 
 .sc-user-input--text {
-  width: 300px;
+  width: calc(100% - 100px);
   resize: none;
   border: none;
   outline: none;
@@ -284,8 +284,9 @@ export default {
 
 .sc-user-input--buttons {
   width: 100px;
+  padding: 0px 10px;
   position: absolute;
-  right: 30px;
+  right: 10px;
   height: 100%;
   display: flex;
   justify-content: flex-end;

@@ -67,8 +67,8 @@ export default {
 <style scoped>
 .sc-header {
   min-height: 75px;
-  border-top-left-radius: 9px;
-  border-top-right-radius: 9px;
+  /* border-top-left-radius: 9px;
+  border-top-right-radius: 9px; */
   padding: 10px;
   box-shadow: 0 1px 4px rgba(0,0,0,.2);
   position: relative;
@@ -78,6 +78,8 @@ export default {
 
 .sc-header--img {
   border-radius: 50%;
+  max-width: 57px;
+  max-height: 57px;
   align-self: center;
   padding: 10px;
 }
