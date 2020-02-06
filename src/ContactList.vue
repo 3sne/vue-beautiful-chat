@@ -3,7 +3,7 @@
     <div class="sc-header" :style="{background: colors.header.bg, color: colors.header.text}">
         <div class="sc-header--title enabled">Your Conversations</div>
     </div>
-    <div class="sc-contact-list--body">
+    <div class="sc-contact-list--body"> 
       <!-- <Contact 
         v-for="(contact, index) in contactList"
         :key="index"
@@ -15,6 +15,7 @@
         <Contact 
           :contactDetails="contact.contactDetails"
           :recentMessage="contact.recentMessage"
+          :timestamp="contact.timestamp"
           @clickContact="clickContact"
         />
         <hr class="hr"/>
@@ -57,13 +58,10 @@ export default {
     },
     contactList: {
       type: Array,
-      required: true
+      default: () => []
     }
   },
-  created() {
-    if (!this.contactList)
-      this.contactList = [];
-  },
+
   methods: {
     clickContact(participant) {
       this.$emit('clickContact', participant)

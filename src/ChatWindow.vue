@@ -1,6 +1,6 @@
 <template>
 <div class="sc-chat-container">
-  <div v-show="true" class="sc-contacts-container">
+  <div v-if="showContacts" class="sc-contacts-container">
     <ContactList 
       :show="showContacts"
       :colors="colors"

@@ -1,7 +1,17 @@
 <template>
   <div class="sc-contact" @click="$emit('clickContact', getParticipantInfo())">
-    <div class="sc-contact--name">{{contactDetails.name}}</div>
-    <div class="sc-contact--msg">{{getRecentMessage()}}</div>
+    <p class="sc-contact--name">
+      {{`${contactDetails.phone}`}}
+    </p>
+    <p class="sc-contact--timestamp">
+      {{getTimeStamp()}}
+    </p>
+    <div class="sc-contact--message">
+      <span>
+        {{getRecentMessage()}}
+      </span>
+    </div>
+    <p class="sc-contact--pending"></p>
   </div>
 </template>
 
@@ -19,11 +29,37 @@ export default {
     recentMessage: {
       type: String,
       default: 'This is a temp message. ignore it. or dont. it doesn\'t matter'
+    },
+    timestamp: {
+      type: String
     }
   },
   methods: {
     getRecentMessage() {
       return this.recentMessage;
+    },
+    getTimeStamp() {
+      const timestamp = this.timestamp;
+      const current = new Date();
+      let dTime = new Date(timestamp.replace(" ", "T"));
+      let onlyTime = dTime.toLocaleTimeString(['en-US'], {
+        hour: '2-digit', 
+        minute: '2-digit'
+      })
+      let onlyDate = dTime.toLocaleDateString('default', {
+        day: 'numeric',
+        month: 'numeric',
+        year: 'numeric'
+      })
+
+      let finalRender;
+      if (current.getDate() === dTime.getDate()) {
+        finalRender = `${onlyTime}`
+      } else {
+        finalRender = `${onlyDate}`
+      }
+
+      return finalRender;
     },
     getParticipantInfo() {
       return {
@@ -39,22 +75,58 @@ export default {
 
 <style>
 .sc-contact {
-  margin: 15px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "name name timestamp timestamp"
+    "message message message pending";
+  grid-column-gap: 10px;
+  align-items: center;
 }
-
 .sc-contact:hover {
   cursor: pointer;
 }
+.sc-contact > p  {
+  margin: 0;
+}
 
 .sc-contact--name {
+  grid-area: name;
   font-weight: bold;
-  font-size: 1.1em;
+  font-size: x-large;
   text-transform: capitalize;
 }
 
-.sc-contact--msg {
-  overflow: hidden;
-  max-height: 1.5em;
+.sc-contact--timestamp {
+  grid-area: timestamp;
+  justify-self: end;
+  align-self: start;
   font-size: small;
+}
+
+.sc-contact--message {
+  grid-area: message;
+  align-self: center;
+  justify-self: start;
+  font-size: medium;
+  height: 1.4em;
+  line-height: 1.4rem;
+  max-width: 120%;
+}
+
+.sc-contact--message > span {
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.sc-contact--pending {
+  grid-area: pending;
+  align-self: center;
+  justify-self: end;
 }
 </style>
